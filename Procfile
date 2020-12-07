@@ -1,1 +1,1 @@
-web: python RunFlask.py
+web: python app/__init__.py
