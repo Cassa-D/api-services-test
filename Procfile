@@ -1,1 +1,1 @@
-web: gunicorn app:app/__init__.py
+web: python RunFlask.py
