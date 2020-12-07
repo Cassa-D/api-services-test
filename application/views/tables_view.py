@@ -33,6 +33,9 @@ def add_team(table_id):
 def update_score(table_id, team_id):
     new_score = request.get_json().get("score")
 
+    if type(new_score) != int:
+        return 400
+
     response = update_score_team(table_id, team_id, new_score)
 
     return jsonify(response.get("data")), response.get("status")
