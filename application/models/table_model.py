@@ -1,7 +1,7 @@
 from typing import List, Tuple
 import csv
 
-from app.models.team_model import Team
+from application.models.team_model import Team
 
 
 class Table:

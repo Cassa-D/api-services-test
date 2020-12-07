@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from app.services.teams_sevices import create_new_team, list_all_teams
+from application.services.teams_sevices import create_new_team, list_all_teams
 
 bp = Blueprint("teams_view", __name__)
 

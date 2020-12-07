@@ -1,8 +1,8 @@
 import csv
 
-from app.models.table_model import Table
-from app.models.team_model import Team
-from app.services.teams_sevices import list_all_teams
+from application.models.table_model import Table
+from application.models.team_model import Team
+from application.services.teams_sevices import list_all_teams
 
 FILENAME = 'data/tables.csv'
 FIELDNAMES = ["id", "name", "award", "table_score",

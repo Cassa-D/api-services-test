@@ -1,7 +1,7 @@
 from flask import Flask
 
-from app.views.tables_view import bp as tables_view
-from app.views.teams_view import bp as teams_view
+from application.views.tables_view import bp as tables_view
+from application.views.teams_view import bp as teams_view
 
 
 def create_app():

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from app.services.tables_services import list_all_tables, create_new_table, add_team_to_table, update_score_team
+from application.services.tables_services import list_all_tables, create_new_table, add_team_to_table, update_score_team
 
 bp = Blueprint("tables_view", __name__)
 
