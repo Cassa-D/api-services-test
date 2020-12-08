@@ -1,8 +1,12 @@
+from environs import Env
 import csv
 
 from application.models.table_model import Table
 from application.models.team_model import Team
 from application.services.teams_sevices import list_all_teams
+
+env = Env()
+env.read_env()
 
 FILENAME = 'data/tables.csv'
 FIELDNAMES = ["id", "name", "award", "table_score",
@@ -46,6 +50,11 @@ def add_team_to_table(table_id: int, team_id: int):
         return {'data': f"Time com id {team_id} já está na tabela com id {table_id}!", 'status': 400}
     except:
         f"""Não tem nenhum time com id {table_id}! Então pode ser adicionado na tabela!"""
+
+    max_teams = int(env("MAXTEAMS"))
+
+    if len(chosen_table.get_teams()) >= max_teams:
+        return {'data': f"Hey, só pode ter {max_teams} times para cada tabela!", 'status': 400}
 
     chosen_table.add_team(chosen_team.id)
 
