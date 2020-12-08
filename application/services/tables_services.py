@@ -85,6 +85,10 @@ def update_score_team(table_id: int, team_id: int, new_score: int):
 
 def team_have_win(table_id, team_id):
     chosen_table = Table.existing_table(table_id)
+
+    if not chosen_table:
+        return {'data': f"Não encontrado tabela com id {table_id}!", 'status': 404}
+
     chosen_table.team_win(team_id)
 
     csv_table = chosen_table.transform_in_csv()

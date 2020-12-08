@@ -11,7 +11,7 @@ class Table:
         self._table_score = table_score
         self._description = description
         self._teams: List[Tuple[int, int]] = []
-        self._team_win: bool | int = -1
+        self._team_win: int = -1
 
     def add_team(self, new_team_id: int):
         self._teams.append((new_team_id, 0))
