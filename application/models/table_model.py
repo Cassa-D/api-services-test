@@ -78,6 +78,8 @@ class Table:
             created_table = cls(**table)
             created_table.id = table_id
 
+            created_table._team_win = teable.get("team_win")
+
             teams_id = [int(team_id)
                         for team_id in table.get("teams_id").split("-")
                         if team_id != ""]
@@ -106,5 +108,6 @@ class Table:
                  'score': int(team_score)}
                 for team_id, team_score in zip(table.get("teams_id").split("-"), table.get("teams_score").split("-"))
                 if team_id != ""
-            ]
+            ],
+            'team_win': table.get("team_win")
         } for table in reader]
