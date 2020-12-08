@@ -78,7 +78,7 @@ class Table:
             created_table = cls(**table)
             created_table.id = table_id
 
-            created_table._team_win = teable.get("team_win")
+            created_table._team_win = table.get("team_win", False)
 
             teams_id = [int(team_id)
                         for team_id in table.get("teams_id").split("-")
