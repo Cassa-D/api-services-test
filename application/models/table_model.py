@@ -36,7 +36,7 @@ class Table:
 
             self.id = next_id
 
-    def team_win(team_id):
+    def team_win(self, team_id):
         self._team_win = team_id
 
     def transform_in_dict(self):
