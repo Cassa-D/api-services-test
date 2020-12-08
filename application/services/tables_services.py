@@ -28,13 +28,24 @@ def create_new_table(table: dict):
 
 
 def add_team_to_table(table_id: int, team_id: int):
+    if type(team_id) != int:
+        return {'data': "Id do time deve ser um inteiro!", 'status': 400}
+
     chosen_table = Table.existing_table(table_id)
     chosen_team = Team.existing_team(team_id)
 
+    # Começando tratação de erros:
     if not chosen_table:
         return {'data': f"Não encontrado tabela com id {table_id}!", 'status': 404}
     if not chosen_team:
-        return {'data': f"Não encontrado time com id {team_id}", 'status': 404}
+        return {'data': f"Não encontrado time com id {team_id}!", 'status': 404}
+
+    try:
+        next(team for team in chosen_table.get_teams()
+             if team[0] == chosen_team.id)
+        return {'data': f"Time com id {team_id} já está na tabela com id {table_id}!", 'status': 400}
+    except:
+        f"""Não tem nenhum time com id {table_id}! Então pode ser adicionado na tabela!"""
 
     chosen_table.add_team(chosen_team.id)
 
@@ -56,6 +67,10 @@ def add_team_to_table(table_id: int, team_id: int):
 
 def update_score_team(table_id: int, team_id: int, new_score: int):
     chosen_table = Table.existing_table(table_id)
+
+    # Começando tratação de erros:
+    if type(new_score) != int:
+        return {'data': "Score deve ser um inteiro!", 'status': 400}
 
     if not chosen_table:
         return {'data': f"Não encontrado tabela com id {table_id}!", 'status': 404}
@@ -86,8 +101,17 @@ def update_score_team(table_id: int, team_id: int, new_score: int):
 def team_have_win(table_id, team_id):
     chosen_table = Table.existing_table(table_id)
 
+    # Começando tratação de erros:
     if not chosen_table:
         return {'data': f"Não encontrado tabela com id {table_id}!", 'status': 404}
+
+    try:
+        next(team for team in chosen_table.get_teams() if team[0] == team_id)
+    except:
+        return {'data': f"Time de id {team_id} não encontrado!", 'status': 404}
+
+    if chosen_table._team_win >= 0:
+        return {'data': f"Tabela com id {table_id} já possui um time vencedor!", 'status': 400}
 
     chosen_table.team_win(team_id)
 

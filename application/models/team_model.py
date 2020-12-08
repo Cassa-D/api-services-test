@@ -27,7 +27,11 @@ class Team:
                 if int(team.get("id")) == team_id:
                     break
 
-        created_team = cls(**team)
+        try:
+            if int(team.get("id")) == team_id:
+                created_team = cls(**team)
 
-        created_team.id = int(team.get("id"))
-        return created_team
+                created_team.id = int(team.get("id"))
+                return created_team
+        except:
+            return None

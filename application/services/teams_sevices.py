@@ -12,10 +12,16 @@ def list_all_teams():
 
     with open(FILENAME, 'r') as f:
         r = csv.DictReader(f)
-        return list(map(transform_id, [team for team in r]))
+        return {'data': list(map(transform_id, [team for team in r])), 'status': 200}
 
 
 def create_new_team(team):
+    # Começando tratação de erros:
+    if (not team.get('name')
+        or not team.get('player1')
+            or not team.get('player2')):
+        return {'data': "Hey mano, tem que mandar os bagulho certinho meu!", 'status': 400}
+
     new_team = Team(**team)
     new_team.get_next_id(FILENAME)
 
@@ -25,4 +31,4 @@ def create_new_team(team):
 
         w.writerow(new_team.__dict__)
 
-    return new_team.__dict__
+    return {'data': new_team.__dict__, 'status': 201}

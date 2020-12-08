@@ -74,25 +74,26 @@ class Table:
                 if int(table.get("id")) == table_id:
                     break
 
-        if int(table.get("id")) == table_id:
-            created_table = cls(**table)
-            created_table.id = table_id
+        try:
+            if int(table.get("id")) == table_id:
+                created_table = cls(**table)
+                created_table.id = table_id
 
-            teams_id = [int(team_id)
-                        for team_id in table.get("teams_id").split("-")
-                        if team_id != ""]
-            teams_score = [int(score)
-                           for score in table.get("teams_score").split("-")
-                           if score != ""]
+                teams_id = [int(team_id)
+                            for team_id in table.get("teams_id").split("-")
+                            if team_id != ""]
+                teams_score = [int(score)
+                               for score in table.get("teams_score").split("-")
+                               if score != ""]
 
-            for index, (team_id, team_score) in enumerate(zip(teams_id, teams_score)):
-                created_table.add_team(team_id)
-                created_table.give_points(index, team_score)
+                for index, (team_id, team_score) in enumerate(zip(teams_id, teams_score)):
+                    created_table.add_team(team_id)
+                    created_table.give_points(index, team_score)
 
-            created_table._team_win = int(table.get("team_win", "-1"))
+                created_table._team_win = int(table.get("team_win", "-1"))
 
-            return created_table
-        else:
+                return created_table
+        except:
             return None
 
     @staticmethod

@@ -7,15 +7,15 @@ bp = Blueprint("teams_view", __name__)
 
 @bp.route('/teams', methods=["GET"])
 def list_teams():
-    all_teams = list_all_teams()
+    response = list_all_teams()
 
-    return jsonify(all_teams), 200
+    return jsonify(response.get('data')), response.get('status')
 
 
 @bp.route('/teams', methods=["POST"])
 def create_team():
     new_team = request.get_json()
 
-    team_created = create_new_team(new_team)
+    response = create_new_team(new_team)
 
-    return team_created, 201
+    return response.get('data'), response.get('status')

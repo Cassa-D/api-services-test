@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 from application.views.tables_view import bp as tables_view
 from application.views.teams_view import bp as teams_view

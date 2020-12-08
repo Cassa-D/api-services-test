@@ -15,6 +15,16 @@ def list_tables():
 def create_table():
     new_table = request.get_json()
 
+    if (
+        not new_table.get('name')
+        or not new_table.get('award')
+        or (
+            not new_table.get('table_score')
+            or type(new_table.get('table_score')) != int)
+        or not new_table.get('description')
+    ):
+        return "Hey tem que mandar as coisas certas manolo!", 400
+
     response = create_new_table(new_table)
 
     return response.get("data"), response.get("status")
@@ -32,9 +42,6 @@ def add_team(table_id):
 @bp.route('/table/<int:table_id>/<int:team_id>', methods=["PUT"])
 def update_score(table_id, team_id):
     new_score = request.get_json().get("score")
-
-    if type(new_score) != int:
-        return 400
 
     response = update_score_team(table_id, team_id, new_score)
 
