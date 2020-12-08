@@ -11,7 +11,7 @@ class Table:
         self._table_score = table_score
         self._description = description
         self._teams: List[Tuple[int, int]] = []
-        self._team_win: bool | int = False
+        self._team_win: bool | int = -1
 
     def add_team(self, new_team_id: int):
         self._teams.append((new_team_id, 0))
@@ -20,9 +20,8 @@ class Table:
         return self._teams
 
     def give_points(self, team_id: int, points: int):
-        if self._team_win == False:
+        if self._team_win == -1:
             self._teams[team_id] = self._teams[team_id][0], points
-            return self._teams[team_id]
 
         return self._teams[team_id]
 
@@ -79,16 +78,7 @@ class Table:
             created_table = cls(**table)
             created_table.id = table_id
 
-            team_win = table.get("team_win", False)
-
-            print(created_table._team_win)
-
-            if team_win == "false":
-                created_table._team_win == False
-            else:
-                created_table._team_win = int(team_win)
-
-            print(type(created_table._team_win))
+            created_table._team_win = int(table.get("team_win", "-1"))
 
             teams_id = [int(team_id)
                         for team_id in table.get("teams_id").split("-")
@@ -119,5 +109,5 @@ class Table:
                 for team_id, team_score in zip(table.get("teams_id").split("-"), table.get("teams_score").split("-"))
                 if team_id != ""
             ],
-            'team_win': table.get("team_win")
+            'team_win': int(table.get("team_win"))
         } for table in reader]
