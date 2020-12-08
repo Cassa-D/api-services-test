@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from application.services.tables_services import list_all_tables, create_new_table, add_team_to_table, update_score_team
+from application.services.tables_services import list_all_tables, create_new_table, add_team_to_table, update_score_team, team_have_win
 
 bp = Blueprint("tables_view", __name__)
 
@@ -39,3 +39,10 @@ def update_score(table_id, team_id):
     response = update_score_team(table_id, team_id, new_score)
 
     return jsonify(response.get("data")), response.get("status")
+
+
+@bp.route('/table/<int:table_id>/<int:team_id>', methods=["GET"])
+def team_win(table_id, team_id):
+    response = team_have_win(table_id, team_id)
+
+    return response.get("data"), response.get("status")

@@ -83,6 +83,24 @@ def update_score_team(table_id: int, team_id: int, new_score: int):
     return {'data': f"Não encontrado time com id {team_id}!", 'status': 404}
 
 
+def team_have_win(table_id, team_id):
+    chosen_table = Table.existing_table(table_id)
+    chosen_table.team_win(team_id)
+
+    csv_table = chosen_table.transform_in_csv()
+    with open(FILENAME, 'r') as f:
+        r = csv.DictReader(f)
+
+        all_tables = [table
+                      if table.get("id") != csv_table.get("id")
+                      else csv_table
+                      for table in r]
+
+        rewrite(all_tables)
+
+        return {'data': chosen_table.transform_in_dict(), 'status': 200}
+
+
 def rewrite(all_tables):
     with open(FILENAME, 'w') as f:
         w = csv.DictWriter(f, FIELDNAMES)

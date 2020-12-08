@@ -11,6 +11,7 @@ class Table:
         self._table_score = table_score
         self._description = description
         self._teams: List[Tuple[int, int]] = []
+        self._team_win: bool | int = False
 
     def add_team(self, new_team_id: int):
         self._teams.append((new_team_id, 0))
@@ -19,7 +20,9 @@ class Table:
         return self._teams
 
     def give_points(self, team_id: int, points: int):
-        self._teams[team_id] = self._teams[team_id][0], points
+        if not self._team_win:
+            self._teams[team_id] = self._teams[team_id][0], points
+            return self._teams[team_id]
         return self._teams[team_id]
 
     def get_next_id(self, filename: str):
@@ -33,6 +36,9 @@ class Table:
 
             self.id = next_id
 
+    def team_win(team_id):
+        self._team_win = team_id
+
     def transform_in_dict(self):
         return {
             'id': self.id,
@@ -43,7 +49,8 @@ class Table:
             'teams': [
                 {'id': team, 'score': score}
                 for team, score in self._teams
-            ]
+            ],
+            'team_win': self._team_win
         }
 
     def transform_in_csv(self):
@@ -54,7 +61,8 @@ class Table:
             'table_score': str(self._table_score),
             'description': self._description,
             'teams_id': '-'.join([str(team) for team, _ in self._teams]),
-            'teams_score': '-'.join([str(score) for _, score in self._teams])
+            'teams_score': '-'.join([str(score) for _, score in self._teams]),
+            'team_win': self._team_win
         }
 
     @classmethod
