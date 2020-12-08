@@ -1,2 +1,3 @@
 id,name,award,table_score,description,teams_id,teams_score,team_win
-1,Sinuca da quarentena,Um lindo virus do corona,10,Para ganhar pontos deve-se acertar a bola 8 depois de colocar todas as suas respectivas bolas nos buracos.,2,3,
+1,Sinuca da quarentena,Um lindo virus do corona,10,Para ganhar pontos deve-se acertar a bola 8 depois de colocar todas as suas respectivas bolas nos buracos.,2-3,0-9,False
+2,Sinuca de Hogwarts,Um dia com Harry Potter,5,Para ganhar pontos deve-se acertar a bola 8 depois de colocar todas as suas respectivas bolas nos buracos. Sem magia.,,,false

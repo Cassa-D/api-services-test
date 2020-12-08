@@ -20,9 +20,10 @@ class Table:
         return self._teams
 
     def give_points(self, team_id: int, points: int):
-        if not self._team_win:
+        if self._team_win == False:
             self._teams[team_id] = self._teams[team_id][0], points
             return self._teams[team_id]
+
         return self._teams[team_id]
 
     def get_next_id(self, filename: str):
@@ -78,7 +79,16 @@ class Table:
             created_table = cls(**table)
             created_table.id = table_id
 
-            created_table._team_win = table.get("team_win", False)
+            team_win = table.get("team_win", False)
+
+            print(created_table._team_win)
+
+            if team_win == "false":
+                created_table._team_win == False
+            else:
+                created_table._team_win = int(team_win)
+
+            print(type(created_table._team_win))
 
             teams_id = [int(team_id)
                         for team_id in table.get("teams_id").split("-")

@@ -6,7 +6,7 @@ from application.services.teams_sevices import list_all_teams
 
 FILENAME = 'data/tables.csv'
 FIELDNAMES = ["id", "name", "award", "table_score",
-              "description", "teams_id", "teams_score"]
+              "description", "teams_id", "teams_score", "team_win"]
 
 
 def list_all_tables():
